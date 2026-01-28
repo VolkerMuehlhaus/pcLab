@@ -1,0 +1,104 @@
+# Copyright 2026 Dušan Grujić (dusan.grujic@etf.bg.ac.rs)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Generic 5 metal 130 nm techology
+
+grid = 0.01
+
+layer diff diffusion
+    GDSIINum = 1
+    GDSIIType = 0
+endlayer
+
+layer pimpl implant
+    GDSIINum = 2
+    GDSIIType = 0
+endlayer
+
+layer cont via
+    GDSIINum = 3
+    GDSIIType = 0
+
+    topmet = M1
+    botmet = diff
+    viaEnc = 0.1
+    viaSize = 0.2
+    viaSpace = 0.28
+endlayer
+
+layer M1 metal
+    GDSIINum = 15
+    GDSIIType = 0
+endlayer
+
+layer M2 metal
+    GDSIINum = 17
+    GDSIIType = 0
+endlayer
+
+layer M3 metal
+    GDSIINum = 19
+    GDSIIType = 0
+endlayer
+
+layer M4 metal
+    GDSIINum = 21
+    GDSIIType = 0
+endlayer
+
+layer M5 metal
+    GDSIINum = 23
+    GDSIIType = 0
+endlayer
+
+layer V1 via
+    GDSIINum = 16
+    GDSIIType = 0
+    topmet = M2
+    botmet = M1
+    viaEnc = 0.1
+    viaSize = 0.2
+    viaSpace = 0.28
+endlayer
+
+layer V2 via
+    GDSIINum = 18
+    GDSIIType = 0
+    topmet = M3
+    botmet = M2
+    viaEnc = 0.1
+    viaSize = 0.2
+    viaSpace = 0.28
+endlayer
+
+layer V3 via
+    GDSIINum = 20
+    GDSIIType = 0
+    topmet = M4
+    botmet = M3
+    viaEnc = 0.1
+    viaSize = 0.2
+    viaSpace = 0.28
+endlayer
+
+layer V4 via
+    GDSIINum = 22
+    GDSIIType = 0
+    topmet = M5
+    botmet = M4
+    viaEnc = 0.2
+    viaSize = 0.4
+    viaSpace = 0.4
+endlayer
+
