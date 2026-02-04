@@ -13,13 +13,13 @@ def gds_pin2viaport (input_filename, width=10, port_layer_start=201, add_frame=T
     """Read GDSII file (created by pclab shape generator) and save to new file (suffix _forEM.gds) with EM ports and ground frame added for gds2palace EM workflow
 
     Args:
-        input_filename (_type_): GDSII input file from pclad, with labels for pins
+        input_filename (string): GDSII input file from pclad, with labels for pins
         width (int): Width of terminals at the ports. Defaults to 10.
         port_layer_start (int, optional): First layer number for generating port geometry. Defaults to 201.
         add_frame (bool, optional): Switch for adding ground frame. Defaults to True.
         frame_layer (int, optional): Layer number for ground frame. Defaults to 0.
-        frame_width (int, optional): Width of ground frame. Defaults to 5*width.
-        frame_margin (int, optional): Distance from GDSII geometry to inner side of ground frame. Defaults to 0.5*bounding box size (measured in x direction).
+        frame_width (float, optional): Width of ground frame. Defaults to 5*width.
+        frame_margin (float, optional): Distance from GDSII geometry to inner side of ground frame. Defaults to 0.5*bounding box size (measured in x direction).
 
     Returns:
         dictionary: key is pin name, value is array [created port layer, pox x, pos y]
