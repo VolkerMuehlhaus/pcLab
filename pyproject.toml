@@ -16,3 +16,5 @@ dependencies = [
     "gdspy",
 ]
 
+[tool.setuptools]
+packages = ["pclab"]
