@@ -39,14 +39,4 @@ def calculate_square_diameter (N, w, s, Ltarget, K1=2.34, K2=2.75, L0=0):
 
 
 
-def calc_resize_factor (L_target, L_is_ftarget, L_is_DC):
-  # finetune step: rescale diameter after initial simulation that was based on predicted DC inductance
-  return L_target/L_is_ftarget *  math.pow(L_is_ftarget/L_is_DC, 0.3)
 
-
-def finetune_rescale_dout (L_target, L_is_ftarget, dout, ftarget, fSRF):
-  # used when repeating the finetune step
-  
-  fratio=math.pow(ftarget/fSRF, 0.8)
-  dnew=dout*L_target/L_is_ftarget*(1-fratio) + dout*fratio
-  return dnew
