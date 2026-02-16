@@ -1552,7 +1552,15 @@ def sym_get_min_diameter(self):
 
     crossover_size = 3*w + 2*s
 
-    viaName  = self._viaLayer
+    if hasattr(self, "_viaLayer"):
+        viaName = self._viaLayer
+    elif hasattr(self, "_bridgeViaLayer"):
+        viaName = self._bridgeViaLayer
+    else:
+        print(f'Could not get via layer name for {self.__class__.__name__}')
+        exit(1)
+
+    
     viaEnc   = self._tech.getDRCRule(viaName, "viaEnc")
     viaSize  = self._tech.getDRCRule(viaName, "viaSize")
     viaSpace = self._tech.getDRCRule(viaName, "viaSpace")
