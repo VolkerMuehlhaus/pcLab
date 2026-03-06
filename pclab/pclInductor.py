@@ -949,7 +949,7 @@ class inductorSym(geomBase):
         n = self._n
         r = roundToGrid(self._r/2)
 
-        e=roundToGrid(w+s+w/(1+sqrt(2)))
+        e=roundToGrid(w+s+w/(1+sqrt(2)) + 2*s*math.tan(math.radians(22.5))) 
 
         corner_w=roundToGrid((w+s)/2/(1+sqrt(2)))
         corner_w2=roundToGrid((w+s)/2.0/(1+sqrt(2.0)))
@@ -1308,7 +1308,7 @@ class inductorSymCT(geomBase):
         n = self._n
         r = roundToGrid(self._r/2)   # outer dimension to radius conversion
 
-        e=roundToGrid(w+s+2*w/(1+sqrt(2)))
+        e=roundToGrid(w+s+2*w/(1+sqrt(2))+ 2*s*math.tan(math.radians(22.5)))
 
         corner_w=roundToGrid((w+s)/2/(1+sqrt(2)))
         corner_w2=roundToGrid((w+s)/2.0/(1+sqrt(2.0)))
