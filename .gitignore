@@ -4,5 +4,5 @@ __pycache__/
 *.pkl
 dist/
 build/
-examples/*.gds
+examples*/*.gds
 
