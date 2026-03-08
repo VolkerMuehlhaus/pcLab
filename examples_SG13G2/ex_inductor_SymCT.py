@@ -12,9 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .pclBalun import *
-from .pclGeom import *
-from .pclInductor import *
-from .pclTech import *
-from .pin2port import *
-from .indcalc import *
+# Single ended inductor example
+from pclab import *
+
+tech = Technology("SG13G2.tech")
+
+ind = inductorSymCT(tech)
+
+r_outer = 200.0
+w = 8.0
+s = 2.0
+nturns = 2.0
+sig_lay = "TopMetal2"
+underpass_lay = "TopMetal1"
+ind_geom = "octagon" # valid choices: "rect", "octagon"
+
+
+ind.setupGeometry(r_outer, w, s, nturns, sig_lay, underpass_lay, underpass_lay, ind_geom)
+ind_name = "inductorSymCT_" + ind_geom + "_r_outer" + str(r_outer) + "_w" +  str(w) + "_n" + str(nturns) + "_s" + str(s)
+ind.genGeometry()
+ind.genGDSII(ind_name + '.gds', structName = ind_name)
+

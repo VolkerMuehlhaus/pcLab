@@ -3,9 +3,21 @@ pcLab is a collection of Python classes that generate GDSII layouts of integrate
 `pip install .`
 in the top level directory.
 
+<img src="./doc/png/layouts_mixed.png" alt="klayout" width="700">
+
+
+
+## Creating inductor layout by value
+
+The original pclab library was created to draw geometries for inductor and transformers from specified width, spacing, diameter and number of turns. By adding the `indcalc.py` functions, it is also possible to create an inductor shape for a given *target value*. An example for such inductor design by target value can be found in SG13G2 examples `inductor_SE_by_value.py` and `inductor_Sym_by_value.py`
+
+
 ## Technology file
 
 To generate GDSII layouts of passive components you will need to write a technology file that describes available layers. Example of technology file for a generic process with 5 metal layers is given in `examples/generic_5M.tech`.
+
+For IHP SG13G2 Open PDK technology, the technology file is provided in `examples_SG13G2/SG13G2.tech`.
+
 
 ### Defining technology grid
 
@@ -159,3 +171,17 @@ ind.genGeometry()
 ind.genGDSII(ind_name + '.gds', structName = ind_name)
 ```
 Other examples on supported layout generators are in the `examples` directory.
+
+## Creating layout for EM simulation
+
+### Via array merging
+
+Layouts can be created with via arrays represented by as single bounding box polygon, by using this switch:
+```python
+ind.setEmVias(True)
+```
+
+### Creating pins and ground frame for EM simulation
+
+The gds2palace EM simulation flow is supported by function `gds_pin2viaport()` defined in pclab/pin2port.py. Using this function will create a new GDSII file where component pins are converted to via port geometries for the gds2palace simulation flow, and a ground frame is added as the common ground reference for all ports. 
+

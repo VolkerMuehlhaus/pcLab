@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from pclab.pclGeom import *
+import math
 
 ###############################################################################
 #
@@ -129,7 +130,14 @@ class balun4x3(geomBase):
         else:
             self._genSubstrateContact = False
                     
-        # TODO: Include dimension check
+        
+        # Dimension check: return False if diameter is too small
+        return r>=self.get_min_diameter()
+
+
+    def get_min_diameter(self):
+
+        return balun_MxN_get_min_diameter(self,4,3)
 
 
     def genGeometry(self):
@@ -487,7 +495,13 @@ class balun2x2(geomBase):
         else:
             self._genSubstrateContact = False
                     
-        # TODO: Include dimension check
+        # Dimension check: return False if diameter is too small
+        return r>=self.get_min_diameter()
+
+
+    def get_min_diameter(self):
+
+        return balun_MxN_get_min_diameter(self,3,3)
 
 
     def genGeometry(self):
@@ -834,8 +848,13 @@ class balun6x3(geomBase):
         else:
             self._genSubstrateContact = False
 
-        # TODO: Include dimension check
+        # Dimension check: return False if diameter is too small
+        return r>=self.get_min_diameter()
 
+    def get_min_diameter(self):
+
+        return balun_MxN_get_min_diameter(self,6,3)
+    
     def genGeometry(self):
         """
         Generate geometry for 4x3 balun
@@ -1220,7 +1239,26 @@ class balun2x1_edgecoupled(geomBase):
         else:
             self._genSubstrateContact = False
                     
-        # TODO: Include dimension check
+        # Dimension check: return False if diameter is too small
+        return r>=self.get_min_diameter()
+
+    
+    def get_min_diameter(self):
+        w = self._w
+        s = self._s
+
+        e=w+2*w/(1+math.sqrt(2))
+        crossover_size = 2*(w+e)
+        if self._geomType == "octagon":
+            Di_min = crossover_size * (1 + math.sqrt(2))
+        else:
+            Di_min = crossover_size    
+
+        Do_min = (Di_min + 2*3*w + 2*2*s)
+        # round to 2 decimal digits
+        Do_min = math.ceil(100*Do_min)/100
+        return Do_min
+   
 
 
     def genGeometry(self):
@@ -1579,7 +1617,27 @@ class balun1x1_broadsidecoupled(geomBase):
         else:
             self._genSubstrateContact = False
                    
-        # TODO: Include dimension check
+        # Dimension check: return False if diameter is too small
+        return r>=self.get_min_diameter()
+
+    
+    def get_min_diameter(self):
+        wp = self._wp
+        ws = self._ws
+
+        we = (wp+ws)/2
+        e= we+2*we/(1+math.sqrt(2))
+        
+        crossover_size = 2*(ws+e)
+        if self._geomType == "octagon":
+            Di_min = crossover_size * (1 + math.sqrt(2))
+        else:
+            Di_min = crossover_size    
+
+        Do_min = Di_min + max(wp,ws)
+        # round to 2 decimal digits
+        Do_min = math.ceil(100*Do_min)/100
+        return Do_min
 
 
     def genGeometry(self):
@@ -1956,7 +2014,28 @@ class balun2x1_broadsidecoupled(geomBase):
         else:
             self._genSubstrateContact = False
  
-        # TODO: Include dimension check
+        # Dimension check: return False if diameter is too small
+        return r >= self.get_min_diameter()
+
+
+    def get_min_diameter(self):
+    # Calculate the minimum possible diameter for octagon balun with m+n turns
+        wp = self._wp
+        sp = self._sp
+        ws = self._ws
+     
+        e = wp + 2*wp/(1+math.sqrt(2))
+        crossover_size = 3*wp + 2*e
+
+        if self._geomType == "octagon":
+            Di_min = crossover_size * (1 + math.sqrt(2))
+        else:
+            Di_min = crossover_size#  + 2*sp    
+
+        Do_min = Di_min + max(ws, 2*wp+sp)
+        # round to 2 decimal digits
+        Do_min = math.ceil(100*Do_min)/100
+        return Do_min
 
 
     def genGeometry(self):
@@ -2214,3 +2293,21 @@ class balun2x1_broadsidecoupled(geomBase):
         lib.add(balCell)
         lib.write_gds(fileName)
     
+
+
+def balun_MxN_get_min_diameter(self, m, n):
+# Calculate the minimum possible diameter for octagon balun with m+n turns
+    w = self._w
+    s = self._s
+
+    e = w+s+2*w/(1+math.sqrt(2))
+    crossover_size = 2*(w+e)
+    if self._geomType == "octagon":
+        Di_min = crossover_size * (1 + math.sqrt(2))
+    else:
+        Di_min = crossover_size + 2*s    
+
+    Do_min = (Di_min + 2*(m+n)*w + 2*(m+n-1)*s)
+    # round to 2 decimal digits
+    Do_min = math.ceil(100*Do_min)/100
+    return Do_min
