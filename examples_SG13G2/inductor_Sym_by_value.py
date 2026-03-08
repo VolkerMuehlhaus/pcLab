@@ -1,4 +1,4 @@
-# Single ended inductor example
+# Symmetric inductor advanced examples: create minimum possible diameter, create inductor with target value
 
 from pclab import *
 import math
@@ -14,7 +14,7 @@ sig_lay = "TopMetal2"
 underpass_lay = "TopMetal1"
 
 
-if True:
+if False:
     # GENERATE FIXED REGULAR LAYOUT WITH MINIMUM POSSIBLE DIAMETER
     w = 5.0
     s = 2.0

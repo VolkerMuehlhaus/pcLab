@@ -1,4 +1,4 @@
-# Single ended inductor example
+# Symmetric ended inductor example
 from pclab import *
 
 
